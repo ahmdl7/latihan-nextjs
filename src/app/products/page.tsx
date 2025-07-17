@@ -49,13 +49,15 @@ export default function ProductsPage() {
     setProducts(products.filter((p) => p.id !== id));
   };
 
+  const defaultProduct: Product = { id: 0, name: "", price: 0 };
+
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Daftar Produk</h1>
 
       <ProductForm
         onSubmit={editing ? handleUpdate : handleAdd}
-        initialData={editing || { name: "", price: 0 }}
+        initialData={editing || defaultProduct}
         isEdit={!!editing}
         onCancel={() => setEditing(null)}
       />

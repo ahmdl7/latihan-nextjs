@@ -1,64 +1,43 @@
-"use client";
-import { useState, useEffect } from "react";
+// src/components/ProductForm.tsx
 
-type ProductFormProps = {
-  initialData: {
-    name: string;
-    price: number;
-    id?: number;
-  };
-  onSubmit: (data: {
-    name: string;
-    price: number;
-    id?: number;
-  }) => void | Promise<void>;
-  onCancel?: () => void;
+import React, { useState, useEffect } from "react";
+import { Product } from "../types"; // kalau kamu pakai type global, sesuaikan path
+
+// ✅ Letakkan interface di sini
+interface ProductFormProps {
+  onSubmit: (product: Product) => void | Promise<void>;
+  initialData?: Product;
   isEdit?: boolean;
-};
+  onCancel?: () => void;
+}
 
-export default function ProductForm({
-  initialData,
+const ProductForm: React.FC<ProductFormProps> = ({
   onSubmit,
-  onCancel,
+  initialData = { name: "", price: 0, id: 0 },
   isEdit = false,
-}: ProductFormProps) {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState<number | string>(0);
-
-  useEffect(() => {
-    setName(initialData.name);
-    setPrice(initialData.price);
-  }, [initialData]);
+  onCancel,
+}) => {
+  const [name, setName] = useState(initialData.name);
+  const [price, setPrice] = useState<number | string>(initialData.price);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({ name, price: Number(price), id: initialData.id });
-    setName("");
-    setPrice(0);
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
-      <input
-        type="text"
-        value={name}
-        placeholder="Nama Produk"
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <input value={name} onChange={(e) => setName(e.target.value)} required />
       <input
         type="number"
         value={price}
-        placeholder="Harga"
-        onChange={(e) => setPrice(e.target.value)} // simpan sebagai string
+        onChange={(e) => setPrice(e.target.value)}
         required
       />
-      <button type="submit">{isEdit ? "Update" : "Tambah"} Produk</button>
-      {isEdit && onCancel && (
-        <button type="button" onClick={onCancel}>
-          Batal
-        </button>
-      )}
+      <button type="submit">{isEdit ? "Update" : "Add"}</button>
+      {onCancel && <button onClick={onCancel}>Cancel</button>}
     </form>
   );
-}
+};
+
+export default ProductForm;
