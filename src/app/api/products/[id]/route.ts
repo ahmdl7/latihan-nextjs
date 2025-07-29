@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-let products = [
+const products = [
   { id: 1, name: "Laptop", price: 12000000 },
   { id: 2, name: "Mouse", price: 150000 },
   { id: 3, name: "Keyboard", price: 250000 },

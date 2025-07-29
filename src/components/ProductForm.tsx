@@ -1,6 +1,6 @@
 // src/components/ProductForm.tsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Product } from "../types"; // kalau kamu pakai type global, sesuaikan path
 
 // ✅ Letakkan interface di sini
