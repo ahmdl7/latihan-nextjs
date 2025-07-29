@@ -9,9 +9,9 @@ const products = [
 // PUT: Update data
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ) {
-  const id = parseInt(params.id);
+  const id = params.id;
   const body = await req.json();
   const { name, price } = body;
 
@@ -26,9 +26,9 @@ export async function PUT(
 // DELETE: Hapus data
 export async function DELETE(
   _: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ) {
-  const id = parseInt(params.id);
+  const id = params.id;
   const index = products.findIndex((p) => p.id === id);
   if (index === -1)
     return NextResponse.json({ message: "Not Found" }, { status: 404 });
