@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 type ProductPageProps = {
   params: {
-    id: string;
+    id: number;
   };
 };
 
